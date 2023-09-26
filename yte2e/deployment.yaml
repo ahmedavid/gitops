@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: yte2e-backend-depl
+  name: yte2e-backend-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yte2e-backend-depl
+  template:
+    metadata:
+      labels:
+        app: yte2e-backend-depl
+    spec:
+      nodeName: kube4
+      imagePullSecrets:
+        - name: scw-regcred
+      initContainers:
+        - name: wait-for-mongo
+          image: busybox:latest
+          command: ["sh", "-c", "until nc -z mongo-svc 27017; do sleep 5; done;"]
+      containers:
+        - image: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend:latest
+          name: yte2e-downloader
+          command: ["sh", "-c", "npm run start:downloader"]
+        - image: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend:latest
+          name: yte2e-generator
+          command: ["sh", "-c", "npm run start:generator"]
+        - image: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend:latest
+          name: yte2e-backend
+          command: ["sh", "-c", "npm run start:backend"]
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+          ports:
+            - containerPort: 3000
