@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: spleeter-depl
+  name: spleeter-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spleeter-depl
+  template:
+    metadata:
+      labels:
+        app: spleeter-depl
+    spec:
+      nodeName: kube5
+      imagePullSecrets:
+        - name: scw-regcred
+      containers:
+        - image: rg.fr-par.scw.cloud/namespace-yte2e/spleeter-api:latest
+          name: spleeter-api
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: spleeter-volume
+              mountPath: /app/pretrained_models
+      volumes:
+        - name: spleeter-volume
+          persistentVolumeClaim:
+            claimName: spleeter-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spleeter-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: spleeter-depl
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: spleeter-pvc
+spec:
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

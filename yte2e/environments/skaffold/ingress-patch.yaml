@@ -1,0 +1,6 @@
+- op: replace #action
+  path: /spec/rules/0/host #resource we want to change
+  value: api-skaffold.ydube.com #value we want to use for patching
+- op: replace
+  path: /spec/rules/1/host
+  value: api-skaffold.ydubber.com

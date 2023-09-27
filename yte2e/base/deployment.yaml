@@ -37,3 +37,59 @@ spec:
               port: 3000
           ports:
             - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yte2e-backend-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: yte2e-backend-depl
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongo-yte2e-depl
+  name: mongo-yte2e-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-yte2e-depl
+  template:
+    metadata:
+      labels:
+        app: mongo-yte2e-depl
+    spec:
+      containers:
+        - image: mongo
+          name: mongo-yte2e
+          volumeMounts:
+            - name: mongo-volume
+              mountPath: /data/db
+
+      volumes:
+        - name: mongo-volume
+          persistentVolumeClaim:
+            claimName: ydubber-mongo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: mongo-yte2e-depl
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
