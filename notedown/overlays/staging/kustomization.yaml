@@ -2,6 +2,6 @@
 namespace: notedown
 images:
   - name: rg.fr-par.scw.cloud/namespace-yte2e/nginx
-    newTag: v0.1.0
+    newTag: v0.1.1
 resources:
   - ../../base
