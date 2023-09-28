@@ -1,6 +1,3 @@
 - op: replace
   path: /spec/rules/0/host
   value: api-dev.ydube.com
-- op: replace
-  path: /spec/rules/1/host
-  value: api-dev.ydubber.com
