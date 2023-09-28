@@ -7,4 +7,4 @@ patches:
       kind: Ingress
       name: ydubber-ingress
     path: ingress-patch.yaml
-namespace: ydubber-dev
+namespace: ydubber
