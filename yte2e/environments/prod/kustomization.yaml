@@ -1,5 +1,6 @@
 resources:
   - ../../base
+  - docker-secret.yaml
 patches:
   - target:
       group: networking.k8s.io
