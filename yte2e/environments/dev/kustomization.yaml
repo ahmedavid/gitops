@@ -1,6 +1,5 @@
 resources:
   - ../../base
-  - docker-secret.yaml
 patches:
   - target:
       group: networking.k8s.io
@@ -8,4 +7,10 @@ patches:
       kind: Ingress
       name: ydubber-ingress
     path: ingress-patch.yaml
+  - target:
+      group: bitnami.com
+      version: v1alpha1
+      kind: SealedSecret
+      name: scw-regcred
+    path: docker-secret-patch.yaml
 namespace: ydubber-dev
