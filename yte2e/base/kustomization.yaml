@@ -1,4 +1,5 @@
 resources:
+  - docker-secret.yaml
   - deployment.yaml
   - ingress.yaml
   - storage.yaml
