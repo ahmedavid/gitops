@@ -1,5 +1,9 @@
 resources:
   - ../../base
+namespace: ydubber
+images:
+  - name: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend
+    newTag: release-v0.0.0
 patches:
   - target:
       group: networking.k8s.io
@@ -13,4 +17,3 @@ patches:
       kind: SealedSecret
       name: scw-regcred
     path: docker-secret-patch.yaml
-namespace: ydubber
