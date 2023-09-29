@@ -3,7 +3,7 @@ resources:
 namespace: ydubber-dev
 images:
   - name: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend
-    newTag: dev-v0.0.14
+    newTag: dev-v0.0.15
 patches:
   - target:
       group: networking.k8s.io
