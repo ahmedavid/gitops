@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend:v0.0.18
