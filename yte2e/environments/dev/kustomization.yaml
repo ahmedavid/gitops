@@ -2,7 +2,8 @@ resources:
   - ../../base
 namespace: ydubber-dev
 images:
-  - name: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend-dev
+  - name: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend
+    newName: rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend-dev
     newTag: v0.0.16-alpha.1
 patches:
   - target:
