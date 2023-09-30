@@ -1,3 +1,0 @@
-kustomize:
-  images:
-    - rg.fr-par.scw.cloud/namespace-yte2e/ydubber-backend-dev:v0.0.16-alpha.2
